@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}POST CONTROLLER{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,6 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/FANTAS666X/Desktop/PROGRAMING F6X/SYMFONY/beat-connection/src/Controller/PostController.php</code></li>
-        <li>Your template at <code>C:/Users/FANTAS666X/Desktop/PROGRAMING F6X/SYMFONY/beat-connection/templates/post/index.html.twig</code></li>
-    </ul>
+    <h1>{{dump(posts)}}</h1>
 </div>
 {% endblock %}

@@ -10,7 +10,7 @@
 
 - **STACK :**
 
-  - **Beat Connection** : `0.3.0`
+  - **Beat Connection** : `0.4.0`
   - **PHP** : `8.1`
   - **Symfony** : `6.4.8`
 
