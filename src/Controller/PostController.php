@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,21 @@ class PostController extends AbstractController
 
     public function index($id): Response
     {
-        $posts = $this->em->getRepository(Post::class)->findBy([
-            'id' => 1,
-            'title' => 'User 001 Post 001'
-        ]);
+        try {
+            $post = $this->em->getRepository(Post::class)->find($id);
+            if (!$post) {
+                $posts = "This post doesn't exist";
+            } else {
+                $posts = $post;
+            }
+        } catch (ConnectionException $e) {
+            $posts = "Database connection error. Please try again later.";
+        } catch (\Exception $e) {
+            $posts = "An unexpected error occurred. Please try again later.";
+        }
+
         return $this->render('post/index.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 }
