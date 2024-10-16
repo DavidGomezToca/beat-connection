@@ -1,6 +1,6 @@
 {
     "name": "dagt/beat-connection",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "A web for music and connection.",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -101,7 +101,7 @@
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.61",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"

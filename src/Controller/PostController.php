@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class MainController extends AbstractController
+class PostController extends AbstractController
 {
-    #[Route('/', name: 'app_main')]
+    #[Route('/post', name: 'app_post')]
     public function index(): Response
     {
-        return $this->render('main/index.html.twig', [
-            'project_name' => 'BEAT CONNECTION',
+        return $this->render('post/index.html.twig', [
+            'controller_name' => 'PostController',
         ]);
     }
 }
