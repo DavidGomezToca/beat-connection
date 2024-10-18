@@ -1,14 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}POST CONTROLLER{% endblock %}
+{% block title %}POST DETAILS{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .post { 
+        margin: 1em auto; 
+        max-width: 800px; 
+        width: 95%; 
+        font: 18px/1.5 sans-serif; 
+    }
+    .post-details {
+        border: 3px solid #000;
+        padding: 1em;
+        margin-bottom: 1em;
+        background: #b2b2b2;
+        border-radius: 20px;
+    }
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .button-container a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f4a338;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font: 18px/1.5 sans-serif;
+    }
+    .button-container a:hover {
+        background-color: #d68f31;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>{{dump(posts)}}</h1>
+<div class="post">
+    <h1>Post Details</h1>
+    {% if post is iterable %}
+        <div class="post-details">
+            <h2>{{ post.title }}</h2>
+            <p><strong>Type:</strong> {{ post.type }}</p>
+            <p><strong>Description:</strong> {{ post.description }}</p>
+            <p><strong>ID:</strong> {{ post.id }}</p>
+        </div>
+    {% else %}
+        <div class="post-details">
+            <h3>{{ post }}</h3>
+        </div>
+    {% endif %}
+    <div class="button-container">
+        <a href="{{ path('app_main') }}">Go To Main</a>
+    </div>
 </div>
 {% endblock %}

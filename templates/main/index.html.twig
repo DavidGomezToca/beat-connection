@@ -4,10 +4,34 @@
 
 {% block body %}
 <style>
-    .example-wrapper { display:flex; justify-content:center; margin: 1em auto; width: 100%; font: 18px/1.5 sans-serif; }
+    .main {
+        display:flex;
+        justify-content:center;
+        margin: 1em auto; width: 100%;
+        font: 18px/1.5 sans-serif;
+    }
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .button-container a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f4a338;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font: 18px/1.5 sans-serif;
+    }
+    .button-container a:hover {
+        background-color: #d68f31;
+    }
 </style>
 
-<div class="example-wrapper">
+<div class="main">
     <h1>{{project_name}}</h1>
+</div>
+<div class="button-container">
+    <a href="{{ path('app_post', {'id': 1}) }}">Go to Post 1</a>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {
     "name": "dagt/beat-connection",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "description": "A web for music and connection.",
     "license": "proprietary",
     "minimum-stability": "stable",

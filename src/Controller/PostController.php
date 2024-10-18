@@ -26,20 +26,24 @@ class PostController extends AbstractController
     public function index($id): Response
     {
         try {
-            $post = $this->em->getRepository(Post::class)->find($id);
-            if (!$post) {
-                $posts = "This post doesn't exist";
+            $postEntity = $this->em->getRepository(Post::class)->find($id);
+            if (!$postEntity) {
+                $postMessage = "The post with ID: $id doesn't exist.";
             } else {
-                $posts = $post;
+                $postMessage = [
+                    'id' => $postEntity->getId(),
+                    'title' => $postEntity->getTitle(),
+                    'type' => $postEntity->getType(),
+                    'description' => $postEntity->getDescription()
+                ];
             }
         } catch (ConnectionException $e) {
-            $posts = "Database connection error. Please try again later.";
+            $postMessage = "Database connection error. Please try again later.";
         } catch (\Exception $e) {
-            $posts = "An unexpected error occurred. Please try again later.";
+            $postMessage = "An unexpected error occurred. Please try again later.";
         }
-
         return $this->render('post/index.html.twig', [
-            'posts' => $posts,
+            'post' => $postMessage
         ]);
     }
 }
