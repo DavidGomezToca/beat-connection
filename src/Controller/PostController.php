@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
-use Doctrine\DBAL\Exception\ConnectionException;
+use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,46 +24,21 @@ class PostController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/post/{id}', name: 'app_post')]
-    public function index($id): Response
+    #[Route('/post-form', name: 'app_post_form')]
+    public function index(Request $request): Response
     {
-        if ($id <= 0) {
-            return $this->redirect('/');
-        }
-        try {
-            $postEntity = $this->em->getRepository(Post::class)->find($id);
-            if ($postEntity) {
-                $postMessage = [
-                    'id' => $postEntity->getId(),
-                    'title' => $postEntity->getTitle(),
-                    'type' => $postEntity->getType(),
-                    'description' => $postEntity->getDescription()
-                ];
-            } else {
-                $postMessage = "The post with ID: $id doesn't exist.";
-            }
-        } catch (ConnectionException $e) {
-            $postMessage = "Database connection error. Please try again later.";
-        } catch (\Exception $e) {
-            $postMessage = "An unexpected error occurred. Please try again later.";
-        }
-        try {
-            $customPostEntity = $this->em->getRepository(Post::class)->findPost((string)($id + 1.));
-            if (!$customPostEntity) {
-                $customPostMessage = "The custom post with ID: $id doesn't exist.";
-            } else {
-                $customPostMessage = "Custom Post ID: " . $customPostEntity['id'];
-            }
-        } catch (NoResultException $e) {
-            $customPostMessage = "The custom post with ID: " . ($id + 1) . " doesn't exist.";
-        } catch (ConnectionException $e) {
-            $customPostMessage = "Database connection error. Please try again later.";
-        } catch (\Exception $e) {
-            $customPostMessage = "An unexpected error occurred. Please try again later.";
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->em->getRepository(User::class)->find(1);
+            $post->setUser($user);
+            $this->em->persist($post);
+            $this->em->flush();
+            return $this->redirectToRoute('app_post_form');
         }
         return $this->render('post/index.html.twig', [
-            'post' => $postMessage,
-            'custom_post' => $customPostMessage
+            'form' => $form->createView()
         ]);
     }
 
