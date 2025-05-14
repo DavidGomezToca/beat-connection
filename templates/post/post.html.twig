@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}POST FORM{% endblock %}
+
+{% block body %}
+<style>
+    .post-form { 
+        margin: 1em auto; 
+        max-width: 800px; 
+        width: 95%; 
+        font: 18px/1.5 sans-serif; 
+    }
+</style>
+
+<div class="post-form">
+    <h1>POST : {{id}}</h1>
+    <p>TITLE : {{post.title}}</p>
+    <p>TYPE : {{post.type}}</p>
+    <p>DESCRIPTION : {{post.description}}</p>
+    <p>URL : {{post.url}}</p>
+    <p>DATE : {{ post.creationDate ? post.creationDate|date('Y-m-d H:i') : 'N/A' }}</p>
+</div>
+{% endblock %}

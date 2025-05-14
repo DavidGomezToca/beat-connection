@@ -24,6 +24,23 @@ class PostController extends AbstractController
         $this->em = $em;
     }
 
+    #[Route('/post/{id}', name: 'app_post')]
+    public function show($id): Response
+    {
+        if ($id <= 0) {
+            return $this->redirect('/');
+        }
+        $post = $this->em->getRepository(Post::class)->find($id);
+        if ($post) {
+            return $this->render('post/post.html.twig', [
+                'id' => $id,
+                'post' => $post
+            ]);
+        } else {
+            return $this->redirect('/');
+        }
+    }
+
     #[Route('/post-form', name: 'app_post_form')]
     public function index(Request $request): Response
     {
@@ -35,7 +52,7 @@ class PostController extends AbstractController
             $post->setUser($user);
             $this->em->persist($post);
             $this->em->flush();
-            return $this->redirectToRoute('app_post_form');
+            return $this->redirectToRoute('app_post', ['id' => $post->getId()]);
         }
         return $this->render('post/index.html.twig', [
             'form' => $form->createView()
