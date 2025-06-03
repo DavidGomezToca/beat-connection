@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
-    const TYPES = ['Opinion' => 'Opinion', 'News' => 'News'];
+    const TYPES = ['Conciertos' => 'Conciertos', 'Eventos' => 'Eventos', 'Artistas' => 'Artistas', 'Bandas Sonoras' => 'Bandas Sonoras', 'Rock' => 'Rock'];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

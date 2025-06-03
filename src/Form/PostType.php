@@ -20,8 +20,6 @@ class PostType extends AbstractType
             ])
             ->add('description')
             ->add('file')
-            ->add('creation_date')
-            ->add('url')
             ->add('submit', SubmitType::class)
         ;
     }
