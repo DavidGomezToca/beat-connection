@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class PostController extends AbstractController
 {
@@ -42,15 +44,30 @@ class PostController extends AbstractController
     }
 
     #[Route('/post-form', name: 'app_post_form')]
-    public function index(Request $request): Response
+    public function index(Request $request, SluggerInterface $slugger): Response
     {
         $post = new Post();
         $posts = $this->em->getRepository(Post::class)->findAllPosts();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('file')->getData();
             $user = $this->em->getRepository(User::class)->find(1);
             $url = str_replace(" ", "-", $form->get('title')->getData());
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('files_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw new \Exception('Ther is an error with your file');
+                }
+                $post->setFile($newFilename);
+            }
             $post->setUser($user);
             $post->setUrl($url);
             $this->em->persist($post);
