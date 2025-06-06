@@ -1,65 +1,88 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}POST FORM{% endblock %}
-
-{% block body %}
-<style>
-    .post-form {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
-    form {
-        border: 3px solid #000;
-        padding: 1em;
-        margin-bottom: 1em;
-        background: #b2b2b2;
-        border-radius: 20px;
-    }
-    #post div {
-        margin: 10px 0;
-        display: inline-flex;
-        width: 100%;
-    }
-    #post div label,
-    #post div button {
-        display: inline-flex;
-        width: 200px;
-        margin-right: 30px;
-    }
-    #post div input,
-    #post div textarea,
-    #post div #post_creation_date {
-        display: inline-flex;
-        width: 220px;
-    }
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .button-container a,
-    #post_submit {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #f4a338;
-        color: white;
-        text-decoration: none;
-        border:none;
-        border-radius: 5px;
-        font: 18px/1.5 sans-serif;
-    }
-    .button-container a:hover,
-    #post_submit:hover {
-        background-color: #d68f31;
-    }
-</style>
-
-<div class="post-form">
-    {{form(form)}}
-    <div class="button-container">
-        <a href="{{ path('app_main') }}">Go To Main</a>
-    </div>
-    {{dump(posts)}}
-</div>
+{% block title %}POST FORM
 {% endblock %}
+{% block body %}
+	<style>
+		.post-form {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		form {
+			border: 3px solid #000;
+			padding: 1em;
+			margin-bottom: 1em;
+			background: #b2b2b2;
+			border-radius: 20px;
+		}
+		#post div {
+			margin: 10px 0;
+			display: inline-flex;
+			width: 100%;
+		}
+		#post div label,
+		#post div button {
+			display: inline-flex;
+			width: 200px;
+			margin-right: 30px;
+		}
+		#post div input,
+		#post div textarea,
+		#post div #post_creation_date {
+			display: inline-flex;
+			width: 220px;
+		}
+		.button-container {
+			text-align: center;
+			margin-top: 20px;
+		}
+		.button-container a,
+		#post_submit {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #f4a338;
+			color: white;
+			text-decoration: none;
+			border: none;
+			border-radius: 5px;
+			font: 18px / 1.5 sans-serif;
+		}
+		.button-container a:hover,
+		#post_submit:hover {
+			background-color: #d68f31;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		thead tr th,
+		tbody tr td {
+			border: 3px solid #ddd;
+			padding: 8px;
+		}
+	</style>
+	<div class="post-form">
+		{{form(form)}}
+			<div class="button-container">
+				<a href="{{ path('app_main') }}">Go To Main</a>
+			</div>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>TITLE</th>
+					<th>DESCRIPTION</th>
+					<th>CREATION DATE</th>
+				</tr>
+			</thead>
+			{% for post in posts %}
+				<tr>
+					<td>{{post.id}}</td>
+					<td>{{post.title}}</td>
+					<td>{{post.description}}</td>
+					<td>{{post.creation_date | date}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endblock %}

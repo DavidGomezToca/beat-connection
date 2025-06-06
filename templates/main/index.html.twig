@@ -1,37 +1,37 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}{{project_name}}{% endblock %}
-
+{% block title %}
+	{{project_name}}
+{% endblock %}
 {% block body %}
-<style>
-    .main {
-        display:flex;
-        justify-content:center;
-        margin: 1em auto; width: 100%;
-        font: 18px/1.5 sans-serif;
-    }
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .button-container a {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #f4a338;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font: 18px/1.5 sans-serif;
-    }
-    .button-container a:hover {
-        background-color: #d68f31;
-    }
-</style>
-
-<div class="main">
-    <h1>{{project_name}}</h1>
-</div>
-<div class="button-container">
-    <a href="{{ path('app_post_form') }}">Go to Post Form</a>
-</div>
+	<style>
+		.main {
+			display: flex;
+			justify-content: center;
+			margin: 1em auto;
+			width: 100%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.button-container {
+			text-align: center;
+			margin-top: 20px;
+		}
+		.button-container a {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #f4a338;
+			color: white;
+			text-decoration: none;
+			border-radius: 5px;
+			font: 18px / 1.5 sans-serif;
+		}
+		.button-container a:hover {
+			background-color: #d68f31;
+		}
+	</style>
+	<div class="main">
+		<h1>{{project_name}}</h1>
+	</div>
+	<div class="button-container">
+		<a href="{{ path('app_post_form') }}">Go to Post Form</a>
+	</div>
 {% endblock %}
