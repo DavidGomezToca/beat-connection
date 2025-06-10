@@ -86,9 +86,7 @@ class PostController extends AbstractController
         if ($id <= 0) {
             return $this->redirect('/');
         }
-        dump('Serching User');
         $user = $this->em->getRepository(User::class)->find($id);
-        dump('User found');
         if ($user) {
             $post = new Post(
                 'Inserted Post For User ID: ' . $id,
