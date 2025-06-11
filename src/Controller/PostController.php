@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PostController extends AbstractController
 {
@@ -44,10 +45,18 @@ class PostController extends AbstractController
     }
 
     #[Route('/post-form', name: 'app_post_form')]
-    public function index(Request $request, SluggerInterface $slugger): Response
+    public function index(Request $request, SluggerInterface $slugger, PaginatorInterface $paginator): Response
     {
         $post = new Post();
-        $posts = $this->em->getRepository(Post::class)->findAllPosts();
+        $query = $this->em->getRepository(Post::class)->findAllPosts();
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            5
+        );
+        // minuto 16
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +85,7 @@ class PostController extends AbstractController
         }
         return $this->render('post/index.html.twig', [
             'form' => $form->createView(),
-            'posts' => $posts
+            'posts' => $pagination
         ]);
     }
 
