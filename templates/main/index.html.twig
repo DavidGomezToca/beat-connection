@@ -3,8 +3,7 @@
 	{{project_name}}
 {% endblock %}
 {% block body %}
-	<style>
-		.main {
+	<style>/* .main {
 			display: flex;
 			justify-content: center;
 			margin: 1em auto;
@@ -26,12 +25,10 @@
 		}
 		.button-container a:hover {
 			background-color: #d68f31;
-		}
-	</style>
-	<div class="main">
-		<h1>{{project_name}}</h1>
-	</div>
-	<div class="button-container">
-		<a href="{{ path('app_post_form') }}">Go to Post Form</a>
-	</div>
-{% endblock %}
+		} */</style>
+<div class="main">
+	<h1>{{project_name}}</h1>
+</div>
+<div class="button-container">
+	<a href="{{ path('app_post_form') }}">Go to Post Form</a>
+</div>{% endblock %}

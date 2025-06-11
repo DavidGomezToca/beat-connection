@@ -4,10 +4,10 @@
 {% endblock %}
 {% block body %}
 	<style>
+
 		.post-form {
 			margin: 1em auto;
 			max-width: 800px;
-			width: 95%;
 			font: 18px / 1.5 sans-serif;
 		}
 		form {
@@ -59,7 +59,12 @@
 		thead tr th,
 		tbody tr td {
 			border: 3px solid #ddd;
-			padding: 8px;
+			padding: 0;
+		}
+		img {
+			width: 100px;
+			height: 100px;
+			object-fit: cover;
 		}
 	</style>
 	<div class="post-form">
@@ -73,7 +78,9 @@
 				<tr>
 					<th>ID</th>
 					<th>TITLE</th>
+					<th>TYPE</th>
 					<th>DESCRIPTION</th>
+					<th>FILE</th>
 					<th>CREATION DATE</th>
 				</tr>
 			</thead>
@@ -83,7 +90,9 @@
 						<a href="{{path('app_post', {id:post.id})}}">{{post.id}}</a>
 					</td>
 					<td>{{post.title}}</td>
+					<td>{{post.type}}</td>
 					<td>{{post.description}}</td>
+					<td><img src="{{asset('uploads/files/' ~ post.file)}}" alt="Not found"></td>
 					<td>{{post.creation_date | date}}</td>
 				</tr>
 			{% endfor %}
